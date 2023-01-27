@@ -3,7 +3,7 @@
 # Displays "Best School" 10 times using a while loop.
 
 count = 10
-while ((count < 10))
+while [ $count -lt 10 ]
 do
  echo "Best School"
 	((count++))
