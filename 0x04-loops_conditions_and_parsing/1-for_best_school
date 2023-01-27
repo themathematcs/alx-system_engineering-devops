@@ -2,5 +2,5 @@
 
 for ((i = 0; i < 10; i++))
 do
-"Best School"
+	echo "Best School"
 done
