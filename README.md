@@ -1,1 +1,1 @@
-i dont know how many redme.md
+basics of shell scripting and so much more
