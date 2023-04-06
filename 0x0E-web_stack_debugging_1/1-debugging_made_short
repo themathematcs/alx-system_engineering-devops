@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
-
-my_var=$(sudo lsof -i :80)
-sudo kill $(echo "$my_var" | awk 'NR==2 {print $2}')
-sudo systemctl start nginx
-
+# fix container:: task 2
+pkill -f apache2
+chmod 644 /etc/nginx/nginx.conf
+sed -Ei 's/\s*#?\s*user .*/user nginx;/' /etc/nginx/nginx.conf
+sed -Ei 's/(listen (\[::\]:)?80) /\180 /' /etc/nginx/sites-enabled/default
+sudo -u nginx service nginx restart
