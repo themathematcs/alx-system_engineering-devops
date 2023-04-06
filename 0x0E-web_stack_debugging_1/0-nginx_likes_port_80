@@ -1,7 +1,13 @@
 #!/usr/bin/env bash
-# fix container:: task 2
-pkill -f apache2
-chmod 644 /etc/nginx/nginx.conf
-sed -i "1i user nginx;" /etc/nginx/nginx.conf
-sed -i 's/80/8080/' /etc/nginx/sites-enabled/default
-sudo -u nginx service nginx restart
+
+# Kill any process running on port 80
+sudo kill $(sudo lsof -t -i :80)
+
+# Ensure Nginx is listening on port 80 of all the server's active IPv4 IPs
+sudo sed -i 's/# listen 80 default_server;/listen 80 default_server;/g' /etc/nginx/sites-enabled/default
+sudo sed -i 's/# listen \[::\]:80 default_server;/listen \[::\]:80 default_server;/g' /etc/nginx/sites-enabled/default
+sudo sed -i 's/# worker_processes/auto;/g' /etc/nginx/nginx.conf
+
+# Restart Nginx
+sudo systemctl restart nginx
+
