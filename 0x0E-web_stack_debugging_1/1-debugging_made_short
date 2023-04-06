@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+my_var=$(sudo lsof -i :80)
+sudo kill $(echo "$my_var" | awk 'NR==2 {print $2}')
+sudo systemctl start nginx
+
